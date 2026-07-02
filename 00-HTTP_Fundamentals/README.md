@@ -38,7 +38,7 @@ This repository contains detailed notes, examples, interview questions, and prac
 
 **Example**:
 
-    You visit ```https://github.com```
+    You visit `https://github.com`
 
     - Your browser sends a request.
     - GitHub server processes it.
@@ -52,12 +52,11 @@ It is a software architecture in which clients request services or resources, an
 **Server**: A centralized system that receives requests, executes business logic, accesses databases if needed, and sends back responses.
 **Communication**: Typically happens using protocols such as HTTP/HTTPS, TCP/IP, or WebSocket.
 **Example**:
-    When you open a website:
-
-    - Your browser (client) sends a request to the web server.
-    - The server processes the request, retrieves data from the database if necessary.
-    - The server sends the webpage or data back to the browser.
-    - The browser displays the result.
+When you open a website:
+- Your browser (client) sends a request to the web server.
+- The server processes the request, retrieves data from the database if necessary.
+- The server sends the webpage or data back to the browser.
+- The browser displays the result.
 
 ## Stateless Nature of HTTP
 
@@ -123,12 +122,12 @@ HTTP methods tell the server what action you want to perform.
 > **Note:** `PATCH` is generally considered idempotent **only if** the patch operation itself is designed to be idempotent. The HTTP specification does not require it.
 
 **Safe** — The method does NOT change server state. You can call it 100 times and the data on the server is untouched.
-    - `SAFE METHODS`: GET, HEAD, OPTION, TRACE
-    - `UNSAFE METHODS`: POST, PUT, PATCH, DELETE, CONNECT
+- `SAFE METHODS`: GET, HEAD, OPTION, TRACE
+- `UNSAFE METHODS`: POST, PUT, PATCH, DELETE, CONNECT
 
 **Idempotent** — Calling it once vs. calling it 10 times produces the same result.
-    -`IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
-    - `NON-IDEMPOTENT`: POSAT, CONNECT
+-`IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
+- `NON-IDEMPOTENT`: POSAT, CONNECT
 
 ## HTTP Request Structure
 Every HTTP request has this exact structure:
@@ -163,7 +162,7 @@ Content-Length: 27
 ## HTTP Response Structure
 The server responds with:
 
-HTTP/1.1  200  OK                 ← Status line (version · code · reason)
+```HTTP/1.1  200  OK                 ← Status line (version · code · reason)
 Content-Type: application/json   ─┐
 Date: Wed, 02 Jul 2026 10:00:00   │ Response headers
 X-RateLimit-Remaining: 58        ─┘
@@ -172,7 +171,7 @@ X-RateLimit-Remaining: 58        ─┘
   "id": 42,                       │ Response body
   "name": "Ankita"               ─┘
 }
-
+```
 
 ## HTTP Status Codes
 
