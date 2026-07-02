@@ -125,7 +125,7 @@ HTTP methods tell the server what action you want to perform.
 - `UNSAFE METHODS`: POST, PUT, PATCH, DELETE, CONNECT
 
 **Idempotent** — Calling it once vs. calling it 10 times produces the same result.
--`IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
+- `IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
 - `NON-IDEMPOTENT`: POSAT, CONNECT
 
 ## HTTP Request Structure
