@@ -162,7 +162,7 @@ Content-Length: 27
 ## HTTP Response Structure
 The server responds with:
 
-```HTTP/1.1  200  OK                 ← Status line (version · code · reason)
+```HTTP/1.1  200  OK              ← Status line (version code reason)
 Content-Type: application/json   ─┐
 Date: Wed, 02 Jul 2026 10:00:00   │ Response headers
 X-RateLimit-Remaining: 58        ─┘
