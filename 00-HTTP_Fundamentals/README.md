@@ -15,7 +15,6 @@
 - HTTP Status Codes
 - Important HTTP Headers
 - Real-world API Examples
-- Interview Questions
 
 
 ## 📖 Overview
