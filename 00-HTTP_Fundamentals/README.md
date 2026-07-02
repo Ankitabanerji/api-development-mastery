@@ -274,13 +274,16 @@ X-RateLimit-Remaining: 58         # How many left
 Retry-After: 30                   # Wait 30s before retrying (after 429)
 Location: /users/42               # Where the new resource lives (after 201)
 ```
-## Chapter 0 — Summary
-| Concept |	What to remember |
-| HTTP	|	Stateless request–response protocol over TCP |
-| URL	|	scheme + host + port + path + query + fragment |
-| Methods	|	GET (read), POST (create), PUT (replace), PATCH (update), DELETE (remove) |
-| Safe	|	No side effects — GET only |
-| Idempotent	|	Same result on repeat calls — GET, PUT, DELETE |
+
+## HTTP Quick Revision
+
+| Concept | What to Remember |
+|---------|------------------|
+| **HTTP** | Stateless request–response protocol over TCP |
+| **URL** | `scheme + host + port + path + query + fragment` |
+| **Methods** | **GET** (Read), **POST** (Create), **PUT** (Replace), **PATCH** (Partial Update), **DELETE** (Remove) |
+| **Safe** | No side effects — **GET**, **HEAD**, **OPTIONS**, **TRACE** |
+| **Idempotent** | Same result on repeated calls — **GET**, **PUT**, **DELETE**, **HEAD**, **OPTIONS**, **TRACE** (*PATCH only if implemented that way*) |
 
 
 ## Real-world Example
