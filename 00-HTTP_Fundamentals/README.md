@@ -1,21 +1,8 @@
-# Chapter 1 - HTTP Fundamentals
+# Chapter 0 - HTTP Fundamentals
 
-> A complete guide to understanding the foundation of API development.
+## 📚 Topics Covered
 
----
-
-## 📖 Overview
-
-Every modern API communicates using the **HTTP (HyperText Transfer Protocol)**.
-
-Understanding HTTP is the first and most important step toward becoming a backend or API developer because every REST API, GraphQL API, and web service is built on top of HTTP.
-
-This repository contains detailed notes, examples, interview questions, and practical knowledge about HTTP Fundamentals.
-
----
-
-# 📚 Topics Covered
-
+- Overview
 - What is HTTP?
 - Client-Server Architecture
 - Stateless Communication
@@ -30,89 +17,58 @@ This repository contains detailed notes, examples, interview questions, and prac
 - Real-world API Examples
 - Interview Questions
 
----
 
-# What is HTTP?
+## 📖 Overview
 
-HTTP (HyperText Transfer Protocol) is a request-response protocol used for communication between a client and a server over TCP/IP.
+Every modern API communicates using the **HTTP (HyperText Transfer Protocol)**.
 
-Example:
+Understanding HTTP is the first and most important step toward becoming a backend or API developer because every REST API, GraphQL API, and web service is built on top of HTTP.
 
-```
-Browser  -------- Request -------->  Server
+This repository contains detailed notes, examples, interview questions, and practical knowledge about HTTP Fundamentals.
 
-Browser  <------- Response --------- Server
-```
+## What is HTTP?
 
-Example:
-
-You visit
+**HTTP (HyperText Transfer Protocol)** is a request-response protocol used for communication between a client and a server over TCP/IP.
 
 ```
-https://github.com
+    Browser  -------- Request -------->  Server
+
+    Browser  <------- Response --------- Server
 ```
 
-Your browser sends a request.
+**Example**:
 
-GitHub server processes it.
+    You visit ```https://github.com```
 
-GitHub sends back HTML, CSS, JavaScript, and images.
+    - Your browser sends a request.
+    - GitHub server processes it.
+    - GitHub sends back HTML, CSS, JavaScript, and images.
 
----
+## Client and Server Architecture
 
-# Client and Server
+It is a software architecture in which clients request services or resources, and a server processes those requests and returns the appropriate response over a network.
 
-Client
+**Client**: The application or device that initiates a request (e.g., a web browser, mobile app, or desktop application).
+**Server**: A centralized system that receives requests, executes business logic, accesses databases if needed, and sends back responses.
+**Communication**: Typically happens using protocols such as HTTP/HTTPS, TCP/IP, or WebSocket.
+**Example**:
+    When you open a website:
 
-- Browser
-- Mobile App
-- React App
-- Angular App
-- Postman
+    - Your browser (client) sends a request to the web server.
+    - The server processes the request, retrieves data from the database if necessary.
+    - The server sends the webpage or data back to the browser.
+    - The browser displays the result.
 
-Server
-
-- FastAPI
-- Flask
-- Django
-- Node.js
-- Spring Boot
-
-Example
-
-```
-React App
-
-      |
-
-HTTP Request
-
-      |
-
-FastAPI Backend
-
-      |
-
-Database
-```
-
----
-
-# Stateless Nature of HTTP
+## Stateless Nature of HTTP
 
 HTTP is Stateless.
-
 Each request is completely independent.
-
 The server does not remember previous requests unless we use
-
 - JWT Tokens
 - Cookies
 - Sessions
 
----
-
-# Anatomy of a URL
+## Anatomy of a URL
 
 Example
 
@@ -131,247 +87,103 @@ Components
 | Query Parameters | sort=stars&page=1 |
 | Fragment | #section |
 
----
+> **NOTES**: What's the difference between a path parameter and a query parameter?
+- Path params identify a resource (/users/123). 
+- Query params filter or modify (?sort=asc).
 
-# HTTP Methods
+## HTTP Methods
+HTTP methods tell the server what action you want to perform.
 
-## GET
+| Method |	What it does |	Example |
+|--------|---------------|----------|
+| GET | Fetch existing data | GET /users/5 |
+| POST | Create a new resource | POST /users |
+| PUT | Replace the entire resource | PUT /users/5 |
+| PATCH | Update only selected fields	| PATCH /users/5 |
+| DELETE | Delete a resource	| DELETE /users/5 |
+| HEAD | Get headers without the body	| HEAD /report.pdf |
+| OPTIONS | Discover allowed methods	| OPTIONS /users |
+| TRACE | Echo the request for diagnostics	| TRACE /users |
+| CONNECT | Create a proxy tunnel	Used by proxies | for HTTPS |
 
-Retrieve data.
+## HTTP Methods Cheat Sheet
 
-Example
+| HTTP Method | Purpose | CRUD Operation | Safe | Idempotent | Request Body | Common Status Codes | Real-World Example |
+|-------------|---------|----------------|------|------------|--------------|---------------------|-------------------|
+| **GET** | Retrieve data from the server | Read | ✅ Yes | ✅ Yes | ❌ No | `200`, `304`, `404` | Get user profile |
+| **POST** | Create a new resource | Create | ❌ No | ❌ No | ✅ Yes | `201`, `200`, `400`, `409` | Create a new user |
+| **PUT** | Replace an entire resource | Update | ❌ No | ✅ Yes | ✅ Yes | `200`, `201`, `204`, `404` | Update all details of a user |
+| **PATCH** | Partially update a resource | Update | ❌ No | Usually ✅* | ✅ Yes | `200`, `204`, `400`, `404` | Update only the email address |
+| **DELETE** | Remove a resource | Delete | ❌ No | ✅ Yes | Usually No | `200`, `202`, `204`, `404` | Delete a user |
+| **HEAD** | Retrieve only headers (no response body) | Read | ✅ Yes | ✅ Yes | ❌ No | `200`, `404` | Check if a file exists |
+| **OPTIONS** | Return supported HTTP methods for a resource | N/A | ✅ Yes | ✅ Yes | ❌ No | `200`, `204` | Browser CORS preflight request |
+| **TRACE** | Echo back the received request for debugging | N/A | ✅ Yes | ✅ Yes | ❌ No | `200` | Diagnostic testing (rarely enabled) |
+| **CONNECT** | Establish a tunnel to another server (usually HTTPS via proxy) | N/A | ❌ No | ❌ No | No | `200` | HTTPS proxy connection |
 
+> **Note:** `PATCH` is generally considered idempotent **only if** the patch operation itself is designed to be idempotent. The HTTP specification does not require it.
+
+**Safe** — The method does NOT change server state. You can call it 100 times and the data on the server is untouched.
+    - `SAFE METHODS`: GET, HEAD, OPTION, TRACE
+    - `UNSAFE METHODS`: POST, PUT, PATCH, DELETE, CONNECT
+
+**Idempotent** — Calling it once vs. calling it 10 times produces the same result.
+    -`IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
+    - `NON-IDEMPOTENT`: POSAT, CONNECT
+
+## HTTP Request Structure
+Every HTTP request has this exact structure:
 ```
-GET /users
+METHOD  /path  HTTP/1.1          ← Request line
+Host: api.example.com            ─┐
+Content-Type: application/json    │ Headers
+Authorization: Bearer <token>    ─┘
+                                  ← Blank line (MANDATORY separator)
+{                                ─┐
+  "name": "Ankita"                │ Body (optional — GET has no body)
+}                                ─┘
 ```
-
-CRUD
-
+**A real GET request**:
 ```
-Read
-```
-
----
-
-## POST
-
-Create new data.
-
-Example
-
-```
-POST /users
-```
-
-CRUD
-
-```
-Create
-```
-
----
-
-## PUT
-
-Replace an entire resource.
-
-Example
-
-```
-PUT /users/5
-```
-
----
-
-## PATCH
-
-Update selected fields.
-
-Example
-
-```
-PATCH /users/5
-```
-
----
-
-## DELETE
-
-Delete a resource.
-
-Example
-
-```
-DELETE /users/5
+GET /users/42 HTTP/1.1
+Host: api.github.com
+Accept: application/json
+Authorization: Bearer ghp_xxxx
 ```
 
----
-
-## HEAD
-
-Returns only headers.
-
-Useful for checking whether a resource exists.
-
----
-
-## OPTIONS
-
-Returns supported HTTP methods.
-
-Mostly used during CORS preflight requests.
-
----
-
-## TRACE
-
-Echoes the received request.
-
-Used for diagnostics.
-
----
-
-## CONNECT
-
-Creates a secure tunnel through a proxy.
-
-Used mainly for HTTPS.
-
----
-
-# Safe Methods
-
-Safe methods never modify server data.
-
-Examples
-
-- GET
-- HEAD
-- OPTIONS
-- TRACE
-
----
-
-# Unsafe Methods
-
-Methods that modify server state.
-
-Examples
-
-- POST
-- PUT
-- PATCH
-- DELETE
-
----
-
-# Idempotent Methods
-
-Calling multiple times gives the same final result.
-
-Examples
-
-- GET
-- PUT
-- DELETE
-- HEAD
-- OPTIONS
-
-Example
-
-```
-DELETE /users/5
-```
-
-Calling it ten times still results in
-
-```
-User does not exist.
-```
-
----
-
-# Non-Idempotent Methods
-
-Examples
-
-- POST
-
-Example
-
-```
-POST /users
-```
-
-Calling multiple times creates multiple users.
-
----
-
-# HTTP Request Structure
-
+**A real POST request**:
 ```
 POST /users HTTP/1.1
-
 Host: api.example.com
-
 Content-Type: application/json
+Content-Length: 27
 
-Authorization: Bearer <token>
+{"name": "Ankita", "age": 23}
+```
 
-{
-   "name":"Ankita"
+## HTTP Response Structure
+The server responds with:
+
+HTTP/1.1  200  OK                 ← Status line (version · code · reason)
+Content-Type: application/json   ─┐
+Date: Wed, 02 Jul 2026 10:00:00   │ Response headers
+X-RateLimit-Remaining: 58        ─┘
+                                  ← Blank line
+{                                ─┐
+  "id": 42,                       │ Response body
+  "name": "Ankita"               ─┘
 }
-```
 
-Components
 
-- Request Line
-- Headers
-- Blank Line
-- Body
+## HTTP Status Codes
 
----
-
-# HTTP Response Structure
-
-```
-HTTP/1.1 200 OK
-
-Content-Type: application/json
-
-{
-    "id":1,
-    "name":"Ankita"
-}
-```
-
-Components
-
-- Status Line
-- Response Headers
-- Blank Line
-- Response Body
-
----
-
-# HTTP Status Codes
-
-## 1xx
-
-Informational
-
+**1xx**: Informational
 Example
 
 ```
 100 Continue
 ```
 
----
-
-## 2xx
-
-Success
-
+**2xx**: Success
 Examples
 
 ```
@@ -382,12 +194,7 @@ Examples
 204 No Content
 ```
 
----
-
-## 3xx
-
-Redirection
-
+**3xx**: Redirection
 Examples
 
 ```
@@ -396,12 +203,7 @@ Examples
 302 Found
 ```
 
----
-
-## 4xx
-
-Client Errors
-
+**4xx**: Client Errors
 Examples
 
 ```
@@ -418,12 +220,7 @@ Examples
 429 Too Many Requests
 ```
 
----
-
-## 5xx
-
-Server Errors
-
+**5xx**: Server Errors
 Examples
 
 ```
@@ -436,9 +233,7 @@ Examples
 504 Gateway Timeout
 ```
 
----
-
-# 401 vs 403
+## 401 vs 403
 
 401 Unauthorized
 
@@ -458,41 +253,37 @@ Authentication required.
 
 Authorization failure.
 
----
 
-# Common HTTP Headers
+## Common HTTP Headers
 
-## Request Headers
-
-```
-Content-Type
-
-Accept
-
-Authorization
-
-Cache-Control
-```
-
----
-
-## Response Headers
+**Request Headers**
 
 ```
-Content-Type
-
-Location
-
-Retry-After
-
-X-RateLimit-Limit
-
-X-RateLimit-Remaining
+Content-Type: application/json     # Format of the body I'm sending
+Accept: application/json           # Format I want back
+Authorization: Bearer <token>      # My credentials
+Cache-Control: no-cache            # Don't use cached data
 ```
 
----
+**Response Headers**
 
-# Real-world Example
+```
+Content-Type: application/json     # Format of body being returned
+X-RateLimit-Limit: 60             # Max requests per hour
+X-RateLimit-Remaining: 58         # How many left
+Retry-After: 30                   # Wait 30s before retrying (after 429)
+Location: /users/42               # Where the new resource lives (after 201)
+```
+## Chapter 0 — Summary
+| Concept |	What to remember |
+| HTTP	|	Stateless request–response protocol over TCP |
+| URL	|	scheme + host + port + path + query + fragment |
+| Methods	|	GET (read), POST (create), PUT (replace), PATCH (update), DELETE (remove) |
+| Safe	|	No side effects — GET only |
+| Idempotent	|	Same result on repeat calls — GET, PUT, DELETE |
+
+
+## Real-world Example
 
 User logs into an application.
 
@@ -506,11 +297,7 @@ Server verifies credentials.
 
 ↓
 
-Returns
-
-```
-JWT Token
-```
+Returns ```JWT Token```
 
 ↓
 
@@ -518,13 +305,8 @@ Client stores token.
 
 ↓
 
-Future requests
+Future requests ```Authorization: Bearer <token>```
 
-```
-Authorization: Bearer <token>
-```
-
----
 
 # Author
 
