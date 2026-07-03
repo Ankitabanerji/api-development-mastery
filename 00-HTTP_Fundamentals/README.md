@@ -124,7 +124,7 @@ HTTP methods tell the server what action you want to perform.
 - `SAFE METHODS`: GET, HEAD, OPTION, TRACE
 - `UNSAFE METHODS`: POST, PUT, PATCH, DELETE, CONNECT
 
-**Idempotent** — Calling it once vs. calling it 10 times produces the same result.
+**Idempotent** — Calling it once vs. calling it 10 times produces the same result. The response may differ (first call: 200, subsequent calls: 404), but the server state is the same.
 - `IDEMPOTENT`: GET, PUT, DELETE, HEAD, OPTION, TRACE
 - `NON-IDEMPOTENT`: POST, CONNECT
 
