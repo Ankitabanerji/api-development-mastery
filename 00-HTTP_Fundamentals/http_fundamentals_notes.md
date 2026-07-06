@@ -288,21 +288,13 @@ Location: /users/42               # Where the new resource lives (after 201)
 ## Real-world Example
 
 User logs into an application. ```POST /login```
-
 ↓
-
 Server verifies credentials.
-
 ↓
-
 Returns ```JWT Token```
-
 ↓
-
 Client stores token.
-
 ↓
-
 Future requests ```Authorization: Bearer <token>```
 
 
