@@ -88,14 +88,15 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     This is what makes REST APIs consistent.  It has 4 sub-constraints.
     A. **Resource Identification**:
         Every resource should have a unique URI. Everything is a resource.
-        **Example**: 
+        **Example**: <br>
         ```
         /users/1
         /products/15
         /orders/101
         ```
-        Not:
         
+        Not:
+
         ```
         getUser()
         findOrder()
