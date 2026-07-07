@@ -89,13 +89,13 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     A. **Resource Identification**:
         Every resource should have a unique URI. Everything is a resource.
         **Example**: 
-
         ```
         /users/1
         /products/15
         /orders/101
         ```
         Not:
+        
         ```
         getUser()
         findOrder()
