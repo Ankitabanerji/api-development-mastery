@@ -88,85 +88,85 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     This is what makes REST APIs consistent.  It has 4 sub-constraints.
 
     1. **Resource Identification**:
-    Every resource should have a unique URI. Everything is a resource.
-    **Example:**
+        Every resource should have a unique URI. Everything is a resource.
+        **Example:**
 
-    ```text
-    /users/1
-    /products/15
-    /orders/101
-    ```
+        ```text
+        /users/1
+        /products/15
+        /orders/101
+        ```
 
-    **Not:**
+        **Not:**
 
-    ```text
-    getUser()
-    findOrder()
-    ```
+        ```text
+        getUser()
+        findOrder()
+        ```
         
     2. **Manipulation Through Representations**:
-    Clients modify resources by sending a representation (usually JSON).
+        Clients modify resources by sending a representation (usually JSON).
 
-    **Example:**
+        **Example:**
 
-    `PUT /users/5`
+        `PUT /users/5`
 
-    **Body:** 
+        **Body:** 
 
-    ```json
-    {
-        "name":"John",
-        "age":28
-    }
-    ```
+        ```json
+        {
+            "name":"John",
+            "age":28
+        }
+        ```
 
-    The server updates the resource using this representation.
+        The server updates the resource using this representation.
 
     3. **Self-Descriptive Messages**:
-    Every request and response should contain enough information to be understood independently.
-    Headers tell the server/client how to interpret the message.
+        Every request and response should contain enough information to be understood independently.
+        Headers tell the server/client how to interpret the message.
 
-    **Example**:
-    ```
-    Content-Type: application/json
-    Authorization: Bearer Token
-    Accept: application/json
-    ```
+        **Example**:
+        ```
+        Content-Type: application/json
+        Authorization: Bearer Token
+        Accept: application/json
+        ```
 
-    **Response:**
-    ```
-    HTTP/1.1 200 OK
-    Content-Type: application/json
-    ```
+        **Response:**
+        ```
+        HTTP/1.1 200 OK
+        Content-Type: application/json
+        ```
 
         The client immediately knows how to process it.
 
     4. **HATEOAS (Hypermedia As The Engine Of Application State)**:
-    Responses include links to possible next actions.
+        Responses include links to possible next actions.
 
-    **Example**:
-    
-    ```json
-        {
-        "id":10,
-        "name":"Laptop",
-        "links":[
+        **Example**:
+        
+        ```json
             {
-                "rel":"self",
-                "href":"/products/10"
-            },
-            {
-                "rel":"reviews",
-                "href":"/products/10/reviews"
-            },
-            {
-                "rel":"seller",
-                "href":"/users/4"
+            "id":10,
+            "name":"Laptop",
+            "links":[
+                {
+                    "rel":"self",
+                    "href":"/products/10"
+                },
+                {
+                    "rel":"reviews",
+                    "href":"/products/10/reviews"
+                },
+                {
+                    "rel":"seller",
+                    "href":"/users/4"
+                }
+            ]
             }
-        ]
-        }
-    ```
-    The client discovers available actions from the response instead of hardcoding every endpoint.
+        ```
+        The client discovers available actions from the response instead of hardcoding every endpoint.
     
 5. **Layered System**:
     The client should not know whether it is communicating directly with the application server or through intermediaries.
