@@ -16,17 +16,21 @@ REST exposes resources using URLs:
 /orders
 ```
 Clients interact with these resources using HTTP methods.
+
 **Example**:
+```
 GET    /users/5
 POST   /users
 PUT    /users/5
 DELETE /users/5
+```
 
 ## REST API Constraints
 
 Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is considered RESTful.
 1. **Client-Server Constraint**:
     The client and server should be completely separate.
+
     The client handles:
     - UI
     - User interaction
@@ -50,13 +54,16 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 
 2. **Stateless Constraint**:
     Every request from the client must contain all information needed to process it. The server does not remember previous requests.
+
     **Example**: 
+
     Request 1:
     ```
     GET /profile
     Authorization: Bearer XYZ
     ```
     Server responds.
+
     Request 2:
     ```
     GET /orders
@@ -73,9 +80,13 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 
 3. **Cacheable Constraint**:
     Servers should indicate whether responses can be cached. Caching avoids unnecessary repeated requests.
+
     **Example**:
+
     Client request: `GET /products`
+
     Server returns: `Cache-Control: max-age=600`
+
     Meaning: Store this response for 10 minutes. Future requests can use the cached response instead of contacting the server.
 
     **Benefits**:
@@ -89,6 +100,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 
     1. **Resource Identification**:
         Every resource should have a unique URI. Everything is a resource.
+
         **Example:**
 
         ```text
@@ -400,7 +412,9 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     - Eventually remove v1 after the announced date.
 
     The HTTP `Sunset` response header tells clients when an API (or API version) will no longer be available.
+
     **A client calls**:
+
     `GET /api/v1/users/42`
 
     **Your server responds**:
@@ -579,7 +593,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     The client reads the links object and knows what it can do next — without any hardcoded URL logic. In theory, the server can change URL structures freely because clients follow links dynamically.
     In practice: most REST APIs don't implement this because it significantly increases response payload size and adds complexity.
 
-## Author
+### Author
 
 **Ankita Banerji**
 
