@@ -179,10 +179,11 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 
     The client simply calls:
     `GET /users`
+
     It doesn't know how many layers are involved.
 
     **Example**:
-
+    ```text
     Client
     ↓
     API Gateway
@@ -192,6 +193,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     Application Server
     ↓
     Database
+    ```
 
 6. **Code on Demand (Optional)**:
     The server can send executable code to the client.
@@ -263,14 +265,15 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     | GET | `/orders/{id}/items` | Get line items for an order | `200 OK` |
     | PATCH | `/orders/{id}` | Update order status (e.g. cancel) | `200 OK` |
 
-    **Design rule**: Nest resources at most 2 levels deep — /users/{id}/orders is fine. /users/{id}/orders/{oid}/items/{iid}/reviews is too deep. Flatten it to /reviews/{iid} instead.
+    **Design rule**: Nest resources at most 2 levels deep — `/users/{id}/orders` is fine. `/users/{id}/orders/{oid}/items/{iid}/` reviews is too deep. Flatten it to /reviews/{iid} instead.
 
 2. **Request & Response Structure**:
     Every REST API should follow a consistent JSON structure.
 
     **Successful list response:**
+
     `GET /products?page=2&per_page=3`
-    ```
+    ```json
     {
     "data": [
         { "id": 101, "name": "Running Shoes", "price": 2499 },
@@ -289,8 +292,9 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     ```
 
     **Successful single resource response:**
+
     `GET /users/42`
-    ```
+    ```json
     {
     "data": {
         "id": 42,
@@ -302,7 +306,8 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     ```
 
     **Error response — always be consistent:**
-    ```
+
+    ```text
     POST /users  (with missing email field)
     HTTP/1.1 400 Bad Request
     ```
@@ -322,7 +327,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     **Mistake**: returning 200 OK with {"success": false, "error": "..."} in the body. The HTTP status code IS the signal — don't bury errors in a 200 body.
 
 3. **Idempotency in Practice — The Idempotency Key**:
-    ```
+    ```python
     import requests
     import uuid
 
@@ -382,6 +387,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     ```
 
     **How to deprecate old versions?**
+
     Suppose our API currently has:
     `/api/v1/users`
 
@@ -477,6 +483,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
             User sees: Order 5, Order 4, Order 3. All good.
 
             `Step 2 — A new order arrives BETWEEN page loads`
+
             While the user is reading page 1, someone places Order #6 (brand new, goes to the top):
             ```
             Position 1  →  Order #6  ← NEW! just inserted
@@ -487,7 +494,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
             Position 6  →  Order #1
             ```
 
-            Step 3 — User clicks "Next Page" (Page 2)
+            `Step 3 — User clicks "Next Page" (Page 2)`
             ```
             GET /orders?page=2&limit=3
             → offset=3, fetch rows starting from position 4
@@ -501,6 +508,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
             The same problem works in reverse too — if an order gets deleted between page loads, one order silently disappears and the user never sees it. That's the other kind of phantom — a record that should appear but doesn't.
 
             **Use when:** Data is small, you need "jump to page 5" functionality, admin dashboards, small datasets.
+
             **Avoid when:** Real-time feeds, large tables (millions of rows), infinite scroll.
 
     - **Cursor-based (used by Facebook, Twitter, Slack):**
@@ -516,6 +524,7 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
         - Best for real-time feeds and infinite scroll
 
         **Use when:** Infinite scroll (Instagram, Twitter), real-time feeds, any large dataset.
+
         **Avoid when:** User needs to jump to page 5 directly, or needs to know the total count.
 
     - **Keyset / seek-based (fastest at scale):**
@@ -543,13 +552,16 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     | **Used by** | Most basic REST APIs | Twitter (X), Slack, Meta | Stripe and other high-scale APIs |
 
 6. **HATEOAS — What It Is and Why Most APIs Skip It**
+
     HATEOAS (Hypermedia As The Engine Of Application State) is the idea that an API response should include links to all possible next actions. The client should never need to hardcode URLs.
+
     **Example:**
     ```
     GET /orders/99
     ```
     Response:
-    ``` 
+
+    ```json 
     {
     "data": {
         "id": 99,
@@ -566,3 +578,9 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
     ```
     The client reads the links object and knows what it can do next — without any hardcoded URL logic. In theory, the server can change URL structures freely because clients follow links dynamically.
     In practice: most REST APIs don't implement this because it significantly increases response payload size and adds complexity.
+
+## Author
+
+**Ankita Banerji**
+
+Learning API Development from fundamentals to advanced production-level concepts.
