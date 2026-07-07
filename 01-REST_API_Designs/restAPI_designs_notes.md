@@ -86,29 +86,34 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 
 4. **Uniform Interface (Most Important)**:
     This is what makes REST APIs consistent.  It has 4 sub-constraints.
+
     A. **Resource Identification**:
         Every resource should have a unique URI. Everything is a resource.
-        **Example**: <br>
-        ```
+        **Example:**
+
+        ```text
         /users/1
         /products/15
         /orders/101
         ```
-        
-        Not:
 
-        ```
+        **Not:**
+
+        ```text
         getUser()
         findOrder()
         ```
+        
     B. **Manipulation Through Representations**:
         Clients modify resources by sending a representation (usually JSON).
-        **Example**
+
+        **Example:**
+
         `PUT /users/5`
 
-        Body: 
+        **Body:** 
 
-        ```
+        ```json
         {
             "name":"John",
             "age":28
