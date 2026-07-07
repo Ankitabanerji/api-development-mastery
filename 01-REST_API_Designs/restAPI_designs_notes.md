@@ -87,65 +87,66 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
 4. **Uniform Interface (Most Important)**:
     This is what makes REST APIs consistent.  It has 4 sub-constraints.
 
-    A. **Resource Identification**:
-        Every resource should have a unique URI. Everything is a resource.
-        **Example:**
+    1. **Resource Identification**:
+    Every resource should have a unique URI. Everything is a resource.
+    **Example:**
 
-        ```text
-        /users/1
-        /products/15
-        /orders/101
-        ```
+    ```text
+    /users/1
+    /products/15
+    /orders/101
+    ```
 
-        **Not:**
+    **Not:**
 
-        ```text
-        getUser()
-        findOrder()
-        ```
+    ```text
+    getUser()
+    findOrder()
+    ```
         
-    B. **Manipulation Through Representations**:
-        Clients modify resources by sending a representation (usually JSON).
+    2. **Manipulation Through Representations**:
+    Clients modify resources by sending a representation (usually JSON).
 
-        **Example:**
+    **Example:**
 
-        `PUT /users/5`
+    `PUT /users/5`
 
-        **Body:** 
+    **Body:** 
 
-        ```json
-        {
-            "name":"John",
-            "age":28
-        }
-        ```
+    ```json
+    {
+        "name":"John",
+        "age":28
+    }
+    ```
 
-        The server updates the resource using this representation.
+    The server updates the resource using this representation.
 
-    C. **Self-Descriptive Messages**:
-        Every request and response should contain enough information to be understood independently.
-        Headers tell the server/client how to interpret the message.
+    3. **Self-Descriptive Messages**:
+    Every request and response should contain enough information to be understood independently.
+    Headers tell the server/client how to interpret the message.
 
-        **Example**:
-        ``
-        Content-Type: application/json
-        Authorization: Bearer Token
-        Accept: application/json
-        ```
+    **Example**:
+    ```
+    Content-Type: application/json
+    Authorization: Bearer Token
+    Accept: application/json
+    ```
 
-        Response:
-        ```
-        HTTP/1.1 200 OK
-        Content-Type: application/json
-        ```
+    **Response:**
+    ```
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+    ```
 
         The client immediately knows how to process it.
 
-    D. **HATEOAS (Hypermedia As The Engine Of Application State)**:
-        Responses include links to possible next actions.
-        **Example**:
-        `JSON`
-        ```
+    4. **HATEOAS (Hypermedia As The Engine Of Application State)**:
+    Responses include links to possible next actions.
+
+    **Example**:
+    
+    ```json
         {
         "id":10,
         "name":"Laptop",
@@ -164,8 +165,8 @@ Roy Fielding defined 6 constraints. If an API satisfies these constraints, it is
             }
         ]
         }
-        ```
-        The client discovers available actions from the response instead of hardcoding every endpoint.
+    ```
+    The client discovers available actions from the response instead of hardcoding every endpoint.
     
 5. **Layered System**:
     The client should not know whether it is communicating directly with the application server or through intermediaries.
