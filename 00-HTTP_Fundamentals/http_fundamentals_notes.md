@@ -287,7 +287,9 @@ Location: /users/42               # Where the new resource lives (after 201)
 
 ## Real-world Example
 
-User logs into an application. ```POST /login```
+User logs into an application. 
+
+```POST /login```
 ↓
 Server verifies credentials.
 ↓
